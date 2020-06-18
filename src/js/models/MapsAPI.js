@@ -1,12 +1,6 @@
+
+
 const loadGoogleMapsApi = require('load-google-maps-api');
-
-const tester = {
-    center: {lat: 45.520562, lng: -122.677438},
-    zoom: 14
-};
-
-
-
 
 
 class Map {
@@ -15,9 +9,36 @@ class Map {
     }
 
     static createMap(googleMaps, mapElement) {
-        return new googleMaps.Map(mapElement, tester);
+        return new googleMaps.Map(mapElement, testttt);
     }
     
 }
+
+let testttt = {
+    center: {lat: 39.5296, lng: -119.8138},
+    zoom: 11
+};
+
+/*
+class testMap {
+    constructor() {
+
+    }
+
+    loadGoogleMapsApi() {
+        return loadGoogleMapsApi({key: process.env.GOOGLEMAPS_KEY});
+    }
+
+    createMap(googleMaps, mapElement) {
+        return new googleMaps.Map(mapElement, testttt);
+    }
+
+    addMarker(googleMaps, mapElement) {
+        return new googleMaps.Marker({position:{lat: 39.5296, lng: -119.8138},
+        map:mapElement})
+    }
+}
+
+*/
 
 export { Map };
