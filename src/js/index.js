@@ -1,3 +1,6 @@
+/*
+
+
 import { Map }  from './models/MapsAPI';
 
 
@@ -28,6 +31,8 @@ document.addEventListener('DOMContentLoaded', function() {
             location: {lat: 39.5296, lng: -119.8138},
             map:map
         })*/
+
+        /*
     })
 
 })
@@ -35,6 +40,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+
+*/
 
 
 /*
@@ -49,3 +56,4 @@ document.addEventListener('DOMContentLoaded', function() {
 */
 
 
+console.log(process.env.GOOGLEMAPS_KEY)

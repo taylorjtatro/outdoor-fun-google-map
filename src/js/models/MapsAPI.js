@@ -1,4 +1,4 @@
-
+/*
 
 const loadGoogleMapsApi = require('load-google-maps-api');
 
@@ -40,5 +40,7 @@ class testMap {
 }
 
 */
-
+/*
 export { Map };
+
+*/
