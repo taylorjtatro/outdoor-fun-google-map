@@ -1,44 +1,51 @@
-
-
-const loadGoogleMapsApi = require('load-google-maps-api');
-
-
-class Map {
-    static loadGoogleMapsApi() {
-        return loadGoogleMapsApi({ key: process.env.GOOGLEMAPS_KEY });
-    }
-
-    static createMap(googleMaps, mapElement) {
-        return new googleMaps.Map(mapElement, testttt);
-    }
-    
-}
-
-let testttt = {
-    center: {lat: 39.5296, lng: -119.8138},
-    zoom: 11
-};
-
 /*
-class testMap {
-    constructor() {
 
+
+
+class GoogleMapsApi {
+    constructor(gApiKey) {
+        this.apiKey = gApiKey;
     }
 
-    loadGoogleMapsApi() {
-        return loadGoogleMapsApi({key: process.env.GOOGLEMAPS_KEY});
+    if (!window._GoogleMapsApi) {
+        this.callbackName = '_GoogleMapsApi.mapLoaded';
+        window._GoogleMapsApi = this;
+        window._GoogleMapsApi.mapLoaded = this.mapLoaded.bind(this);
     }
 
-    createMap(googleMaps, mapElement) {
-        return new googleMaps.Map(mapElement, testttt);
-    }
-
-    addMarker(googleMaps, mapElement) {
-        return new googleMaps.Marker({position:{lat: 39.5296, lng: -119.8138},
-        map:mapElement})
-    }
+    load() {
+        if (!this.promise) {
+          this.promise = new Promise(resolve => {
+            this.resolve = resolve;
+    
+            if (typeof window.google === 'undefined') {
+              const script = document.createElement('script');
+              script.src = `//maps.googleapis.com/maps/api/js?key=${this.apiKey}&callback=${this.callbackName}`;
+              script.async = true;
+              document.body.append(script);
+    
+            } else {
+              this.resolve();
+            }
+          });
+        }
+    
+        return this.promise;
+      }
+    
+      /**
+       * mapLoaded
+       * Global callback for loaded/resolved map instance.
+       * @this {_GoogleMapsApi}
+       */
+      /*
+      mapLoaded() {
+    
+        if (this.resolve) {
+          this.resolve();
+        }
+      }
 }
 
+export default GoogleMapsApi
 */
-
-export { Map };
