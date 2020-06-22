@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet"  href="css/style.css">
     <script src="https://kit.fontawesome.com/32fc53af2f.js" crossorigin="anonymous"></script>
     <title>Outdoor Fun Google Maps</title>
 </head>
@@ -14,8 +14,177 @@
 <body>
 <div id="map"></div>
 
+<div class="icon-toggle">
+    <div class="water">
+        <img src="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png">
+        <input type="checkbox" id="water" name="water" value="water" checked>
+    </div>
+    <div class="park">
+        <img src="img/park.svg">
+        <input type="checkbox" id="park" name="park" value="park" checked>
+    </div>
+    <div class="hiking">
+        <img src="img/hiking.svg">
+        <input type="checkbox" id="hiking" name="hiking" value="hiking" checked>
+    </div>
+    <div class="train">
+        <img src="img/train.svg">
+        <input type="checkbox" id="train" name="train" value="train" checked>        
+    </div>
+    <div class="question">
+        <img src="img/newPlace.svg">
+        <input type="checkbox" id="question" name="question" value="question" checked>        
+    </div>    
+
+</div>
 
 
+<script>
+var places;
+function initMap(){
+
+    const domMap = document.querySelector('#map');
+
+    let mapOptions = {
+        center: {lat:39.5296,lng:-119.8138},
+        zoom: 10
+    };
+
+    var map = new google.maps.Map(domMap, mapOptions);
+/*
+var marker = new google.maps.Marker({
+    position: {lat:39.493918,lng:-120.097742},
+    title: 'Stampede Spot',
+    map:map,
+    icon: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
+    content: 'keep it simple'
+})
+
+var infoWindowContent =  
+    `
+    <div class="infoContent">
+        <figure>
+            <img>
+            <figcaption>
+                <h3></h3>
+            </figcaption>
+        </figure>
+        <p>Perfect spot for boating and fun and games.</p>
+    </div>
+    `;
+
+
+var infoWindow = new google.maps.InfoWindow({
+    content: marker.content
+})
+
+marker.addListener('click', function(){
+    infoWindow.open(map, marker)
+})
+
+*/
+
+
+//write a function to pass in the stuff for content so like <h1>${this.title}</h1>
+
+
+
+//Icon
+    const flag = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
+
+    const hiker = 'img/hiking.svg';
+
+    const park = 'img/park.svg';
+
+    const train = 'img/train.svg';
+
+    const question = 'img/newPlace.svg';
+
+    class Place {
+    constructor(title, coords, icon, image, description) {
+        this.title = title,
+        this.coords = coords, 
+        this.icon = icon, 
+        this.image = image,
+        this.description = description
+    }
+    //maybe add the this.title for the displaycontent here?
+}
+
+
+
+
+
+
+
+    let stampedeReservoir = new Place('Stampede Reservoir', {lat:39.493918,lng:-120.097742}, flag, 'stampedeReservoir.jpg', `Perfect spot for hiking, boating, and Fin! Best found location so far is .7 miles North of turnoff to cross the dam. If you pass the yellow turn sign you've gone too far.`)
+
+
+    let carsonWaterfall = new Place('Carson Waterfall', {lat:39.153380,lng:-119.815623},flag, 'carsonWaterfall.jpg', `Very easy hike up to a beautiful waterfall. Nearly an hour drive from the new house but a goog place to keep in mind. (Usually mildly crowded)`);
+
+    let galenaCreek = new Place('Galena Creek', {lat:39.354260,lng:-119.857190},hiker, 'galenaCreek.jpg', `One of our favorite spots for morning trips. Beautiful hiking, easy creek access for water-play, and for such a great spot it usually has very few people.`);
+
+    let thomasCreekTrail = new Place('Thomas Creek Trail', {lat:39.392047,lng:-119.839448},hiker, 'thomasCreekTrail.png', `Gorgeous trail through the trees and overgrowth. We have only hiked here once but it is sure to become a great trail for us this summer!`);
+
+    let arrowCreekPark = new Place('Arrow Creek Park', {lat:39.404704,lng:-119.801486},park,'arrowCreekPark.jpg','Wonderful quite park up ArrowCreek Parkway. Very quiet, great playground, large field perfect for flying kites. Plus trail down to the creek behind.')
+
+    let bowersMansionPark = new Place('Bowers Mansion Park', {lat:39.286846,lng:-119.839509},park,'bowersMansion.jpg','Wonderful park if you are looking to avoid people. Usually no one there, great playground, and wide open field. Plus you can stop by the fire dept. to see the trucks.')
+
+    let nevadaStateRailroadMuseum = new Place('Nevada State Railroad Museum', {lat:39.148389,lng:-119.767992},train,'nevadaStateRailroad.jpg', 'Best railroad this side of California. Great for Saturday and Sunday day trips down to ride the train. Steam Engine rides are the best.')
+
+    let virginiaAndTruckeeRailroadCompany = new Place('Virginia & Truckee Railroad Company', {lat:39.307718, lng:-119.648650},train,'virginiaRailroad.jpg','Weekend train rides. Train ride from Carson to Viriginia City, Thomas the Train, and Santa Train');
+
+    let TPBikeTrail = new Place('TPBike Trail', {lat:39.452669,lng:-120.005729},question,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSiCTj5-xWmLXn8O7n_cqxQD9Rvr75fUZEdA1Y7sIXuHhkPO2gb&usqp=CAU','This is the trail that runs along the Truckee and looks like has some amazing points. Also can veer off to try Fueller Lake back at the beginning near Verdi');
+
+//this should be let places
+    //but I made it var outside the function so i could console.log it.
+     places = [stampedeReservoir, carsonWaterfall, galenaCreek, thomasCreekTrail, arrowCreekPark, bowersMansionPark, nevadaStateRailroadMuseum, virginiaAndTruckeeRailroadCompany, TPBikeTrail];
+
+
+
+
+
+    places.forEach(el => addMarker(el));
+
+
+
+    function addMarker(local) {
+        var marker = new google.maps.Marker({
+            position: local.coords,
+            title: local.title,
+            map:map,
+            icon: local.icon
+            //content: 
+        })
+
+        let infoWindowContent = `    
+            <div class="infoContent">
+                <figure>
+                    <img src="img/${local.image}">
+                    <figcaption>
+                        <h3>${local.title}</h3>
+                    </figcaption>
+                </figure>
+                <p>${local.description}</p>
+            </div>
+        `;
+
+
+        var infoWindow = new google.maps.InfoWindow({
+            //content: local.displayContent
+            content: infoWindowContent
+            
+        })
+
+        marker.addListener('click', function() {
+            infoWindow.open(map, marker);})
+    }
+
+
+
+
+}
+</script>
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBs4-s4s9c-M3kTEbsoIcWd0fzrmlt6ZkI&callback=initMap"
 type="text/javascript"></script>
