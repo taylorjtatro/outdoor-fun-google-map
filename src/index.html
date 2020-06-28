@@ -15,9 +15,9 @@
 <div id="map"></div>
 
 <div class="icon-toggle">
-    <div class="water">
+    <div class="flag">
         <img src="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png">
-        <input type="checkbox" id="water" name="water" value="water" checked>
+        <input type="checkbox" id="flag" name="flag" value="flag" checked>
     </div>
     <div class="park">
         <img src="img/park.svg">
@@ -25,7 +25,7 @@
     </div>
     <div class="hiking">
         <img src="img/hiking.svg">
-        <input type="checkbox" id="hiking" name="hiking" value="hiking" checked>
+        <input type="checkbox" id="hiker" name="hiker" value="hiker" checked>
     </div>
     <div class="train">
         <img src="img/train.svg">
@@ -41,6 +41,17 @@
 
 <script>
 var places;
+
+var outerPlaces = [];
+
+const hikerPlaces = [];
+
+const parkPlaces = [];
+
+const trainPlaces = [];
+
+const questionPlaces = [];
+
 function initMap(){
 
     const domMap = document.querySelector('#map');
@@ -90,6 +101,7 @@ marker.addListener('click', function(){
 
 
 //Icon
+/*
     const flag = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
 
     const hiker = 'img/hiking.svg';
@@ -99,6 +111,19 @@ marker.addListener('click', function(){
     const train = 'img/train.svg';
 
     const question = 'img/newPlace.svg';
+
+
+
+    const icons = [flag, hiker, park, train, question];
+*/
+    const icons = {
+        flag: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
+        hiker: 'img/hiking.svg',
+        park: 'img/park.svg',
+        train: 'img/train.svg',
+        question: 'img/newPlace.svg'
+    }
+
 
     class Place {
     constructor(title, coords, icon, image, description) {
@@ -117,28 +142,30 @@ marker.addListener('click', function(){
 
 
 
-    let stampedeReservoir = new Place('Stampede Reservoir', {lat:39.493918,lng:-120.097742}, flag, 'stampedeReservoir.jpg', `Perfect spot for hiking, boating, and Fin! Best found location so far is .7 miles North of turnoff to cross the dam. If you pass the yellow turn sign you've gone too far.`)
+    let stampedeReservoir = new Place('Stampede Reservoir', {lat:39.493918,lng:-120.097742}, icons.flag, 'stampedeReservoir.jpg', `Perfect spot for hiking, boating, and Fin! Best found location so far is .7 miles North of turnoff to cross the dam. If you pass the yellow turn sign you've gone too far.`)
 
 
-    let carsonWaterfall = new Place('Carson Waterfall', {lat:39.153380,lng:-119.815623},flag, 'carsonWaterfall.jpg', `Very easy hike up to a beautiful waterfall. Nearly an hour drive from the new house but a goog place to keep in mind. (Usually mildly crowded)`);
+    let carsonWaterfall = new Place('Carson Waterfall', {lat:39.153380,lng:-119.815623},icons.flag, 'carsonWaterfall.jpg', `Very easy hike up to a beautiful waterfall. Nearly an hour drive from the new house but a goog place to keep in mind. (Usually mildly crowded)`);
 
-    let galenaCreek = new Place('Galena Creek', {lat:39.354260,lng:-119.857190},hiker, 'galenaCreek.jpg', `One of our favorite spots for morning trips. Beautiful hiking, easy creek access for water-play, and for such a great spot it usually has very few people.`);
+    let galenaCreek = new Place('Galena Creek', {lat:39.354260,lng:-119.857190},icons.hiker, 'galenaCreek.jpg', `One of our favorite spots for morning trips. Beautiful hiking, easy creek access for water-play, and for such a great spot it usually has very few people.`);
 
-    let thomasCreekTrail = new Place('Thomas Creek Trail', {lat:39.392047,lng:-119.839448},hiker, 'thomasCreekTrail.png', `Gorgeous trail through the trees and overgrowth. We have only hiked here once but it is sure to become a great trail for us this summer!`);
+    let thomasCreekTrail = new Place('Thomas Creek Trail', {lat:39.392047,lng:-119.839448},icons.hiker, 'thomasCreekTrail.png', `Gorgeous trail through the trees and overgrowth. We have only hiked here once but it is sure to become a great trail for us this summer!`);
 
-    let arrowCreekPark = new Place('Arrow Creek Park', {lat:39.404704,lng:-119.801486},park,'arrowCreekPark.jpg','Wonderful quite park up ArrowCreek Parkway. Very quiet, great playground, large field perfect for flying kites. Plus trail down to the creek behind.')
+    let arrowCreekPark = new Place('Arrow Creek Park', {lat:39.404704,lng:-119.801486},icons.park,'arrowCreekPark.jpg','Wonderful quite park up ArrowCreek Parkway. Very quiet, great playground, large field perfect for flying kites. Plus trail down to the creek behind.')
 
-    let bowersMansionPark = new Place('Bowers Mansion Park', {lat:39.286846,lng:-119.839509},park,'bowersMansion.jpg','Wonderful park if you are looking to avoid people. Usually no one there, great playground, and wide open field. Plus you can stop by the fire dept. to see the trucks.')
+    let bowersMansionPark = new Place('Bowers Mansion Park', {lat:39.286846,lng:-119.839509},icons.park,'bowersMansion.jpg','Wonderful park if you are looking to avoid people. Usually no one there, great playground, and wide open field. Plus you can stop by the fire dept. to see the trucks.')
 
-    let nevadaStateRailroadMuseum = new Place('Nevada State Railroad Museum', {lat:39.148389,lng:-119.767992},train,'nevadaStateRailroad.jpg', 'Best railroad this side of California. Great for Saturday and Sunday day trips down to ride the train. Steam Engine rides are the best.')
+    let nevadaStateRailroadMuseum = new Place('Nevada State Railroad Museum', {lat:39.148389,lng:-119.767992},icons.train,'nevadaStateRailroad.jpg', 'Best railroad this side of California. Great for Saturday and Sunday day trips down to ride the train. Steam Engine rides are the best.')
 
-    let virginiaAndTruckeeRailroadCompany = new Place('Virginia & Truckee Railroad Company', {lat:39.307718, lng:-119.648650},train,'virginiaRailroad.jpg','Weekend train rides. Train ride from Carson to Viriginia City, Thomas the Train, and Santa Train');
+    let virginiaAndTruckeeRailroadCompany = new Place('Virginia & Truckee Railroad Company', {lat:39.307718, lng:-119.648650},icons.train,'virginiaRailroad.jpg','Weekend train rides. Train ride from Carson to Viriginia City, Thomas the Train, and Santa Train');
 
-    let TPBikeTrail = new Place('TPBike Trail', {lat:39.452669,lng:-120.005729},question,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSiCTj5-xWmLXn8O7n_cqxQD9Rvr75fUZEdA1Y7sIXuHhkPO2gb&usqp=CAU','This is the trail that runs along the Truckee and looks like has some amazing points. Also can veer off to try Fueller Lake back at the beginning near Verdi');
+    let TPBikeTrail = new Place('TPBike Trail', {lat:39.452669,lng:-120.005729},icons.question,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSiCTj5-xWmLXn8O7n_cqxQD9Rvr75fUZEdA1Y7sIXuHhkPO2gb&usqp=CAU','This is the trail that runs along the Truckee and looks like has some amazing points. Also can veer off to try Fueller Lake back at the beginning near Verdi');
 
 //this should be let places
     //but I made it var outside the function so i could console.log it.
      places = [stampedeReservoir, carsonWaterfall, galenaCreek, thomasCreekTrail, arrowCreekPark, bowersMansionPark, nevadaStateRailroadMuseum, virginiaAndTruckeeRailroadCompany, TPBikeTrail];
+
+
 
 
 
@@ -156,7 +183,12 @@ marker.addListener('click', function(){
             icon: local.icon
             //content: 
         })
-
+        console.log(marker.icon)
+ 
+        outerPlaces.push(marker);
+        
+        
+        
         let infoWindowContent = `    
             <div class="infoContent">
                 <figure>
@@ -179,6 +211,91 @@ marker.addListener('click', function(){
         marker.addListener('click', function() {
             infoWindow.open(map, marker);})
     }
+
+
+    /*Testing Code below this line
+    document.querySelector('#water').addEventListener('click', () => {
+        if (document.querySelector('#water').checked === false) {
+            hikerPlaces.forEach(el => {
+                if (el.icon === hiker){el.setMap(null)}
+            });
+        }
+    })*/
+
+/**THIS CODE WORKS! now lets make it more efficient***/
+/*
+    document.querySelector('#flag').addEventListener('click', () => {
+        if (document.querySelector('#flag').checked === false) {
+            outerPlaces.forEach(el => {
+                if (el.icon === icons.flag) {
+                    el.setMap(null);
+                } 
+            })
+        } else if (document.querySelector('#flag').checked === true){
+            outerPlaces.forEach(el => {
+                if (el.icon === icons.flag) {
+                    el.setMap(map);
+                } 
+            })
+        }
+    })
+*/
+
+/**    MAKE ABOVE MORE EFFICIENT             ***/
+
+
+let selectors = ['flag', 'hiker', 'park', 'train', 'question'];
+
+selectors.forEach(sel => {
+    console.log(sel)
+    document.querySelector(`#${sel}`).addEventListener('click', () => {
+        console.log('clicked')
+        if (document.querySelector(`#${sel}`).checked === false) {
+           outerPlaces.forEach(el => {
+               if (el.icon === icons[sel]) {
+                   el.setMap(null)
+               }
+           })
+        } else if (document.querySelector(`#${sel}`).checked) {
+            outerPlaces.forEach(el => {
+                if (el.icon === icons[sel]) {
+                    el.setMap(map)
+                }
+            })
+        }
+    })
+})
+
+
+/*Try and figure out how to get this to work onLoad as well
+let checkListeners = ['click', 'loadend'];
+
+checkListeners.forEach(lis => {
+    selectors.forEach(sel => {
+    console.log(sel)
+    document.querySelector(`#${sel}`).addEventListener(lis, () => {
+        console.log('clicked')
+        if (document.querySelector(`#${sel}`).checked === false) {
+           outerPlaces.forEach(el => {
+               if (el.icon === icons[sel]) {
+                   el.setMap(null)
+               }
+           })
+        } else if (document.querySelector(`#${sel}`).checked) {
+            outerPlaces.forEach(el => {
+                if (el.icon === icons[sel]) {
+                    el.setMap(map)
+                }
+            })
+        }
+    })
+})
+})
+*/
+
+
+
+
 
 
 
